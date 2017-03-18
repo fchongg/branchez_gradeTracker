@@ -22,4 +22,5 @@ class Assessment(models.Model):
 	aname = models.CharField(max_length=200)
 	agid = models.ForeignKey(AssessmentGroup)
 	apercentage = models.PositiveSmallIntegerField()
+	duedate = models.DateTimeField('Due Date')
 
