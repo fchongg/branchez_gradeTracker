@@ -8,7 +8,7 @@
 </head>
 
 <button type="button" onclick="window.location.href='../addcourses'">Add Course</button>
-<button type="button">Add Assessment</button>
+<button type="button" onclick="window.location.href='../addassessment'">Add Assessment</button>
 
 <body>
 <h1>Current Courses:</h1>
@@ -16,7 +16,7 @@
 <div class = container>
 <ul>
 {% for course in all_courses %}
-    <li>{{course.cname}}</li>
+    <p><a onclick="window.location.href='../'+{{course.id}}+'/'">{{course.cname}}</a></p>
 {% endfor %}
 </ul>
 </div>
