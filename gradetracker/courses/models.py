@@ -9,8 +9,8 @@ from django.utils import timezone
 
 class Course(models.Model):
     uid =  models.ForeignKey(User)
-    cname = models.CharField(max_length=200)
-    term = models.CharField(max_length=2)
+    cname = models.CharField(max_length=200, verbose_name='Course Name')
+    term = models.CharField(max_length=2, verbose_name='Term')
 
     def get_all_courses(user_id):
         Course.objects.filter(uid = user_id)

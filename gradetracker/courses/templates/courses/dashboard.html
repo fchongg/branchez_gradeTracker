@@ -6,6 +6,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
+<button type="button" onclick="window.location.href='../courses'">Course Homepage</button>
+<button type="button" onclick="window.location.href='../addcourses'">Add Course</button>
+<button type="button" onclick="window.location.href='../addassessment'">Add Assessment</button>
 <body>
     <h1 align="center">Dashboard</h1>
     <h3 align="center">Be Productive Today!</h3> 
@@ -27,6 +30,12 @@
         </table>
     </div>
 
-
+    <div class=container>
+        <h4 align="left"> You should work on: </h4>
+        <body>
+        {% for highest in priority%}
+        <td>{{priority.aname}}</td>
+        {% endfor %}
+        </body> 
 </body>
 </html>
