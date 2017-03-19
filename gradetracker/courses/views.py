@@ -11,6 +11,7 @@ def index(request):
 
 
 def courseDetail(request):
+
     return HttpResponse();
 
 def courses(request, question_id):
