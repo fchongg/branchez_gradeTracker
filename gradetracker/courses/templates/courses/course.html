@@ -1,3 +1,14 @@
+<button type="button" onclick="window.location.href='../addcourses'">Add Course</button>
+<button type="button">Add Assessment</button>
+
+<h1>Current Courses:</h1>
+
+<ul>
+{% for course in all_courses %}
+    <li>{{course.cname}}</li>
+{% endfor %}
+</ul>
+
 <!-- {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}

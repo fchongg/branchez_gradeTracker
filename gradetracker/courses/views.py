@@ -6,6 +6,7 @@ from .models import Assessment, AgType
 from django.template import loader
 from django.shortcuts import render
 from itertools import chain
+from .Courseforms import CourseForm
 
 
 def index(request):
@@ -28,18 +29,32 @@ def courseDetail(request, course_id):
 	}
 	return render(request, 'courses/coursedetails.html',context)
 
-def courses(request, question_id):
+def courses(request):
+
 	current_user = request.user
-	if current_user.is_authenticated():
-		# grab all the courses associated with that id
-		all_courses = Course.object.get(uid=current_user.id)
+	# template = loader.get_template('course')
+	all_courses = Course.objects.filter(uid=1)
 
-	else:
-		return HttpResponse("You're looking at question %s." % question_id)
-    
+	context = {
+       	'all_courses': all_courses,
+   	}
+	return render(request, 'courses/course.html', context)
 
-def addCourses(request):
-    return HttpResponse("Hello, you're at the add courses page.")
+def addcourses(request):
+
+
+	# Create a form instance from POST data.
+	f = CourseForm(request.POST)
+
+	# Save a new Article object from the form's data.
+	new_course = f.save()
+
+	# Create a form to edit an existing Article, but use
+	# POST data to populate the form.
+	a = Course.objects.get(pk=1)
+	f = Courseforms(request.POST, instance=a)
+	f.save()
+	return render(request, 'courses/addcourses.html')
 
 
 

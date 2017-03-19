@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^home_courses/$', views.courses, name='courses'),
     url(r'^$', views.Course, name='Course'),
     # ex: /Courses/add/
-    url(r'addCourses^$', views.addCourses, name='addCourses'),
+    url(r'^addcourses/$', views.addcourses, name='addcourses'),
 ]
