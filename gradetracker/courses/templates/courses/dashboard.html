@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 align="center">Dashboard</h1>
+    <h3 align="center">Be Productive Today!</h3> 
+    <h4 align="center">You have the following due in the next 5 days</h4>   
+
+    <div class = container>
+        <table class = "table">
+            <tr>
+                <th>Assignment Name</th>
+            <th>Due Date</th>
+            </tr>
+            {% for assignment in assignments %}
+            <tr>
+                    <td>{{assignment.aname}}</td>
+                    <td>{{assignment.duedate}}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+</body>
+</html>

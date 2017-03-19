@@ -44,7 +44,9 @@ def courses(request):
 
 def addcourses(request):
 	if request.method == 'POST':
-		form = CourseForm(request.POST)
+		m = request.POST
+		print("THE IS THE FORM VALS", m)
+		form = CourseForm(m)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('/courses/')
@@ -64,4 +66,5 @@ def addAssessment(request):
 	return render(request, 'courses/addassessment.html', {'form' : form})
 
 
-
+def dashboard(request):
+	return render(request, 'courses/dashboard.html')

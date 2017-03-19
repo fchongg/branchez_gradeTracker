@@ -8,8 +8,8 @@ from django import forms
 class Course(models.Model):
    # uid =  models.ForeignKey(User)
     uid = models.IntegerField()
-    cname = models.CharField(max_length=200)
-    term = models.CharField(max_length=2)
+    cname = models.CharField(max_length=200, verbose_name='Course Name')
+    term = models.CharField(max_length=2, verbose_name='School Term')
 
 class AgType(models.Model):
     agname = models.CharField(max_length=100)
