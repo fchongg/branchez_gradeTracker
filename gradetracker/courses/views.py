@@ -16,6 +16,7 @@ def courseDetail(request):
     return HttpResponse();
 
 def courses(request):
+<<<<<<< HEAD
 
 
 
@@ -39,8 +40,13 @@ def courses(request):
 	# 	# do nothing
 
 	return render(request, 'courses/course.html', context)
+=======
 
-def addCourses(request):
-    return HttpResponse("Hello, you're at the add courses page.")
 
+	return HttpResponse("courses")
+>>>>>>> 33bb2a8ba4dc320cf345d661ef65a33a5f8b61ba
+
+def addcourses(request):
+
+    return render(request, 'courses/addcourses.html')
 
