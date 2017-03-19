@@ -49,9 +49,10 @@ def courses(request):
 def addcourses(request):
 	if request.method == 'POST':
 		form = CourseForm(request.POST)
+		user = request.user
 		if form.is_valid():
 			portfolio = form.save(commit=False)
-			portfolio.uid = request.user.id  # The logged-in user
+			portfolio.uid = request.user
 			form.save()
 			return HttpResponseRedirect('/courses/courses/')
 	else:
@@ -82,7 +83,7 @@ def addAssessmentGroup(request):
 
 def dashboard(request):
 	# todo : get userid and input into fn
-	allCourses = Course.get_all_courses(user_id=request.user.id)
+	allCourses = Course.get_all_courses(uid=request.user.id)
 	allAssignmentsfive = []
 	percentage = 0
 	priority = None
