@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 
-
 from .models import Course
 from .models import AssessmentGroup
 from .models import Assessment
+from django.template import loader
 
 
 def index(request):
@@ -19,9 +19,11 @@ def courses(request, question_id):
 	if current_user.is_authenticated():
 		# grab all the courses associated with that id
 		all_courses = Course.object.get(uid=current_user.id)
+
 	else:
 		return HttpResponse("You're looking at question %s." % question_id)
     
+
 def addCourses(request):
     return HttpResponse("Hello, you're at the add courses page.")
 
