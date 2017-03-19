@@ -60,6 +60,7 @@ def addAssessment(request):
 			return HttpResponseRedirect('/courses/')
 	else:
 		form = AssessmentForm()
+		form.fields['agtid'].queryset = AgType.objects.filter()
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
 
