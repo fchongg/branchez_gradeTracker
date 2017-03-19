@@ -2,14 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Assessment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<p>
+<p>
+<h2 align="center">Add Assessment </h2>	
+<p>
+<p>
+    <div class="container" margin-left=1>
     <form action="" method="post">
     {% csrf_token %}
     {% for field in form %}
-        <label>{{ field.label }}</label>
-        {{field}}
+     <div class = "form-group">
+        <label class="col-sm-3">{{ field.label }}</label>
+        	 {{field}} 
+    </div>
     {% endfor %}
     <input type="submit" value="Submit" />
 </form>
