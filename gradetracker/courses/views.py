@@ -94,21 +94,23 @@ def dashboard(request):
 		assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
 		for ag in assessmentGroup:
 			grouppercentage = ag.agpercentage
-			fiveassignment = list(Assessment.objects.filter(agid = ag.id).
-										   filter(date__lt=timezone.now() - datetime.timedelta(days=5)))
-			for i in range(1, len(fiveassignment) - 1):
+			fiveassignment = list(Assessment.objects.filter(agid = ag.id).filter(duedate__lt=timezone.now() + datetime.timedelta(days=5)).filter(duedate__gt=timezone.now()))
+
+			for i in range(len(fiveassignment)):
 				if priority is None:
-					priority = fiveassignment[i]
-					percentage = fiveassignment[i] * grouppercentage
+					priority = fiveassignment[i].aname
+					percentage = fiveassignment[i].apercentage * grouppercentage
 				else:
 					aworth = fiveassignment[i].apercentage * grouppercentage
 					if aworth > percentage :
 						percentage = aworth
-						priority = fiveassignment[i]
+						priority = fiveassignment[i].aname
 			allAssignmentsfive.append(fiveassignment)
 
 	context = {
-		'assignmentName' : allAssignmentsfive,
-		'highestWorth' : priority
+		'assignmentName' : fiveassignment,
+		'highestWorth' : priority,
+		'timeNow' : timezone.now() + datetime.timedelta(days=5)
+
 	}
 	return render(request, 'courses/dashboard.html', context)

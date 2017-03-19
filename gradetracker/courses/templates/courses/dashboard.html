@@ -12,7 +12,9 @@
 <body>
     <h1 align="center">Dashboard</h1>
     <h3 align="center">Be Productive Today!</h3> 
-    <h4 align="center">You have the following due in the next 5 days</h4>   
+    <h4 align="center">You have the following due in the next 5 days</h4>  
+
+    <h2>{{timeNow}}</h2>
 
     <div class = container>
         <table class = "table">
@@ -20,7 +22,7 @@
                 <th>Assignment Name</th>
             <th>Due Date</th>
             </tr>
-            {% for assignment in allAssignmentsfive %}
+            {% for assignment in assignmentName %}
             <tr>
                     <td>{{assignment.aname}}</td>
                     <td>{{assignment.duedate}}</td>
@@ -32,10 +34,11 @@
 
     <div class=container>
         <h4 align="left"> You should work on: </h4>
-        <body>
-        {% for highest in priority%}
-        <td>{{priority.aname}}</td>
+        <p>{{highestWorth}}</p>
+        <!-- <body>
+        {% for highest in highestWorth%}
+        <td>{{highest.aname}}</td>
         {% endfor %}
-        </body> 
+        </body>  -->
 </body>
 </html>
