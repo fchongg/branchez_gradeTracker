@@ -1,13 +1,16 @@
-from django.http import HttpResponse
-
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Course
 from .models import AssessmentGroup
 from .models import Assessment, AgType
 from django.template import loader
 from django.shortcuts import render
+from .forms import CourseForm
 from itertools import chain
 from .Courseforms import CourseForm
+from django.views.decorators.csrf import csrf_exempt
+from .forms import AssessmentForm
 
+@csrf_exempt
 
 def index(request):
     return HttpResponse("Hello, you're at the courses section")
@@ -41,20 +44,36 @@ def courses(request):
 	return render(request, 'courses/course.html', context)
 
 def addcourses(request):
+	print ("made it to add courses")
+	course_debug = Course(uid_id=1, cname='trial', term='w1')
+	course_debug.save()
+	if request.method == 'POST':
+		print("made it to post")
+		form = CourseForm(request.POST, request.FILES or none)
+		if form.is_valid():
+			cname = request.POST.get('add_cname', '')
+			print("made it to cname")
+			term = request.POST.get('add_term', '')
+			print("made it to term")
+			course_obj = Course(cname=cname, term=term)
+			
+			
+			return HttpResponse('home_courses/')
 
+	else: 
+		form = CourseForm()
+	return render(request, 'courses/addcourse.html')
 
-	# Create a form instance from POST data.
-	f = CourseForm(request.POST)
+def addAssessment(request):
+	if request.method == 'POST':
+		form = AssessmentForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/courses/')
+	else:
+		form = AssessmentForm()
 
-	# Save a new Article object from the form's data.
-	new_course = f.save()
-
-	# Create a form to edit an existing Article, but use
-	# POST data to populate the form.
-	a = Course.objects.get(pk=1)
-	f = Courseforms(request.POST, instance=a)
-	f.save()
-	return render(request, 'courses/addcourses.html')
+	return render(request, 'courses/addassessment.html', {'form' : form})
 
 
 
