@@ -6,7 +6,7 @@ import django.utils.timezone
 
 class Course(models.Model):
     uid =  models.ForeignKey(User)
-    cname = models.CharField(max_length=8)
+    cname = models.CharField(max_length=200)
     term = models.CharField(max_length=2)
 
 
@@ -23,7 +23,6 @@ class AssessmentGroup(models.Model):
         AssessmentGroup.objects.get(cid = course_id);
 
 class Assessment(models.Model):
-	agtid = models.ForeignKey(AgType)
 	aname = models.CharField(max_length=200)
 	agid = models.ForeignKey(AssessmentGroup)
 	apercentage = models.PositiveSmallIntegerField()
