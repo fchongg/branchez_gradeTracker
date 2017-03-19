@@ -70,6 +70,17 @@ def addAssessment(request):
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
 
+def addAssessmentGroup(request):
+	if request.method == 'POST':
+		form = AssessmentGroupForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('courses/courses')
+	else:
+		form = AssessmentGroupForm()
+
+	return render(request, 'courses/addgroup.html', {'form' : form})
+
 def dashboard(request):
 	# todo : get userid and input into fn
 	allCourses = Course.get_all_courses(uid=request.user.id)
