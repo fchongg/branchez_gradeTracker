@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ModelForm
+from courses.models import Assessment
 
 from .models import Course
 
@@ -13,3 +15,8 @@ class CourseForm(forms.Form):
         max_length=2,
         widget=forms.Select(choices=TERM_CHOICES),
         )
+
+class AssessmentForm(ModelForm):
+    class Meta:
+        model = Assessment
+        fields = ['aname', 'apercentage', 'duedate', 'agid']

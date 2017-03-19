@@ -1,13 +1,14 @@
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Course
 from .models import AssessmentGroup
 from .models import Assessment, AgType
 from django.template import loader
 from django.shortcuts import render
 from .forms import CourseForm
-from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
+from .Courseforms import CourseForm
+from django.views.decorators.csrf import csrf_exempt
+from .forms import AssessmentForm
 
 @csrf_exempt
 
@@ -62,6 +63,17 @@ def addcourses(request):
 	else: 
 		form = CourseForm()
 	return render(request, 'courses/addcourse.html')
+
+def addAssessment(request):
+	if request.method == 'POST':
+		form = AssessmentForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/courses/')
+	else:
+		form = AssessmentForm()
+
+	return render(request, 'courses/addassessment.html', {'form' : form})
 
 
 
