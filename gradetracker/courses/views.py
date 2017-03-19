@@ -7,7 +7,7 @@ from django.shortcuts import render
 from .forms import CourseForm
 from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
-from .forms import AssessmentForm
+from .forms import AssessmentForm, AssessmentGroupForm
 
 import datetime
 from django.utils import timezone
@@ -49,9 +49,10 @@ def courses(request):
 def addcourses(request):
 	if request.method == 'POST':
 		form = CourseForm(request.POST)
+		user = request.user
 		if form.is_valid():
 			portfolio = form.save(commit=False)
-			portfolio.uid = request.user.id  # The logged-in user
+			portfolio.uid = request.user
 			form.save()
 			return HttpResponseRedirect('/courses/courses/')
 	else:
@@ -68,6 +69,17 @@ def addAssessment(request):
 		form = AssessmentForm()
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
+
+def addAssessmentGroup(request):
+	if request.method == 'POST':
+		form = AssessmentGroupForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('courses/courses')
+	else:
+		form = AssessmentGroupForm()
+
+	return render(request, 'courses/addgroup.html', {'form' : form})
 
 def dashboard(request):
 	# todo : get userid and input into fn

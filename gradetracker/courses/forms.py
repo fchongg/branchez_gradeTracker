@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from courses.models import Assessment
+from courses.models import Assessment, AssessmentGroup
 
 from .models import Course
 
@@ -14,3 +14,8 @@ class AssessmentForm(ModelForm):
     class Meta:
         model = Assessment
         fields = ['aname', 'apercentage', 'duedate', 'agid']
+
+class AssessmentGroupForm(ModelForm):
+    class Meta:
+        model = AssessmentGroup
+        fields = ['cid', 'agpercentage', 'agtid']
