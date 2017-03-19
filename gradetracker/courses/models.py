@@ -3,35 +3,35 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 import django.utils.timezone
 from django import forms
+import datetime
+from django.utils import timezone
 
 
 class Course(models.Model):
-   # uid =  models.ForeignKey(User)
-    uid = models.IntegerField()
+    uid =  models.ForeignKey(User)
+   #  uid = models.IntegerField()
     cname = models.CharField(max_length=200)
     term = models.CharField(max_length=2)
 
+    def get_all_courses(self, user_id):
+        Course.objects.filter(uid = user_id)
+
 class AgType(models.Model):
     agname = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.agname
 
 class AssessmentGroup(models.Model):
     cid = models.ForeignKey(Course, on_delete=models.CASCADE)
     agpercentage = models.PositiveSmallIntegerField()
     agtid = models.ForeignKey(AgType)
 
-
     def __unicode__(self):
-        # model = AgType
-        name = Course.objects.get(id=self.agtid)
-        # name = self.getName()
-        # name = AgType.objects.get(id=self.agtid)
-        # print(name)
-        # name = str(typeobj['agname'])
-        # print nameG
-        return str(self.agpercentage)
+        return self.agtid.agname
 
-    def get_all_assignments(self, course_id):
-        AssessmentGroup.objects.get(cid = course_id);
+    def get_all_assignments_5_days(self, course_id):
+        AssessmentGroup.objects.filter(cid = course_id, date__lt=timezone.now() - datetime.timedelta(days=5))
 
 class Assessment(models.Model):
 	aname = models.CharField(max_length=200, verbose_name='Name')
