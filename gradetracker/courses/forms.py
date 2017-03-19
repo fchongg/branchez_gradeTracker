@@ -2,8 +2,14 @@ from django import forms
 
 from .models import Course
 
-class PostForm(forms.CourseForm):
+TERM_CHOICES = (
+    ('W1', 'W2', 'S1', 'S2'),
+    )
 
-    class Meta:
-        model = Course
-        fields = ('title', 'text',)
+class CourseForm(forms.Form):
+	add_cname = forms.CharField(label='add_cname', max_length=100)
+	add_term = forms.CharField(
+		label = 'add_term',
+        max_length=2,
+        widget=forms.Select(choices=TERM_CHOICES),
+        )

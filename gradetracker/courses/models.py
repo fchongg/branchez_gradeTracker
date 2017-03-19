@@ -2,25 +2,16 @@ from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 import django.utils.timezone
+from django import forms
 
 
-
-TERM_CHOICES = (
-    ('W1', 'W2', 'S1', 'S2'),
-    )
 class Course(models.Model):
     uid =  models.ForeignKey(User)
     cname = models.CharField(max_length=200)
     term = models.CharField(max_length=2)
 
-class CourseForm(ModelForm):
-    class Meta:
-        model = Course
-        fields = ['cname', 'term']
-
 class AgType(models.Model):
     agname = models.CharField(max_length=100)
-
 
 class AssessmentGroup(models.Model):
     cid = models.ForeignKey(Course, on_delete=models.CASCADE)
