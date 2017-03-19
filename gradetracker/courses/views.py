@@ -1,12 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
-
 from .models import Course
 from .models import AssessmentGroup
 from .models import Assessment, AgType
 from django.template import loader
 from django.shortcuts import render
+from .forms import CourseForm
 from itertools import chain
-from .Courseforms import CourseForm
 from django.views.decorators.csrf import csrf_exempt
 from .forms import AssessmentForm
 
@@ -43,21 +42,15 @@ def courses(request):
    	}
 	return render(request, 'courses/course.html', context)
 
-# def addcourses(request):
-#
-#
-# 	# # Create a form instance from POST data.
-# 	# f = CourseForm(request.POST)
-#     #
-# 	# # Save a new Article object from the form's data.
-# 	# new_course = f.save()
-#     #
-# 	# # Create a form to edit an existing Article, but use
-# 	# # POST data to populate the form.
-# 	# a = Course.objects.get(pk=1)
-# 	# f = Courseforms(request.POST, instance=a)
-# 	# f.save()
-# 	# return render(request, 'courses/addcourses.html')
+def addcourses(request):
+	if request.method == 'POST':
+		form = CourseForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/courses/')
+	else:
+		form = CourseForm()
+	return render(request, 'courses/addcourse.html', {'form' : form})
 
 def addAssessment(request):
 	if request.method == 'POST':
@@ -69,7 +62,6 @@ def addAssessment(request):
 		form = AssessmentForm()
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
-
 
 
 
