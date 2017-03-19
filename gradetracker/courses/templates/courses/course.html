@@ -1,8 +1,11 @@
+<button type="button" onclick="window.location.href='../addcourses'">Add Course</button>
+<button type="button">Add Assessment</button>
+
 <h1>Current Courses:</h1>
 
 <ul>
-{% for course_name in course.cname.all %}
-    <li>{{course_name}}</li>
+{% for course in all_courses %}
+    <li>{{course.cname}}</li>
 {% endfor %}
 </ul>
 
