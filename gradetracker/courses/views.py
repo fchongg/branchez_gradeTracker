@@ -7,7 +7,7 @@ from django.shortcuts import render
 from .forms import CourseForm
 from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
-from .forms import AssessmentForm
+from .forms import AssessmentForm, AssessmentGroupForm
 
 import datetime
 from django.utils import timezone
@@ -70,20 +70,27 @@ def addAssessment(request):
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
 
+def addAssessmentGroup(request):
+	if request.method == 'POST':
+		form = AssessmentGroupForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('courses/courses')
+	else:
+		form = AssessmentGroupForm()
+
+	return render(request, 'courses/addgroup.html', {'form' : form})
+
 def dashboard(request):
 	# todo : get userid and input into fn
-	allCourses = Course.get_all_courses(uid=request.user.id)
+	allCourses = Course.get_all_courses(user_id=request.user.id)
 	allAssignmentsfive = []
 	for course in allCourses:
-		assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
+		#assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
 		for ag in assessmentGroup:
 			allAssignmentsfive.append(list(Assessment.objects.filter(agid = ag.id).
 										   filter(date__lt=timezone.now() - datetime.timedelta(days=5))))
-
-
-
-
-
-
-def dashboard(request):
-	return render(request, 'courses/dashboard.html')
+	context = {
+		'assignmentName' : allAssignmentsfive
+	}
+	return render(request, 'courses/dashboard.html', context)
