@@ -9,6 +9,12 @@ from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
 from .forms import AssessmentForm
 
+import datetime
+from django.utils import timezone
+
+from django.http import QueryDict
+
+
 @csrf_exempt
 
 def index(request):
@@ -33,10 +39,7 @@ def courseDetail(request, course_id):
 
 def courses(request):
 
-	current_user = request.user
-	# template = loader.get_template('course')
-	all_courses = Course.objects.filter(uid=1)
-
+	all_courses = Course.objects.filter(uid=request.user.id)
 	context = {
        	'all_courses': all_courses,
    	}
@@ -44,12 +47,12 @@ def courses(request):
 
 def addcourses(request):
 	if request.method == 'POST':
-		m = request.POST
-		print("THE IS THE FORM VALS", m)
-		form = CourseForm(m)
+		form = CourseForm(request.POST)
 		if form.is_valid():
+			portfolio = form.save(commit=False)
+			portfolio.uid = request.user.id  # The logged-in user
 			form.save()
-			return HttpResponseRedirect('/courses/')
+			return HttpResponseRedirect('/courses/courses/')
 	else:
 		form = CourseForm()
 	return render(request, 'courses/addcourse.html', {'form' : form})
@@ -59,11 +62,25 @@ def addAssessment(request):
 		form = AssessmentForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/courses/')
+			return HttpResponseRedirect('/courses/courses/')
 	else:
 		form = AssessmentForm()
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
+
+def dashboard(request):
+	# todo : get userid and input into fn
+	allCourses = Course.get_all_courses(uid=request.user.id)
+	allAssignmentsfive = []
+	for course in allCourses:
+		assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
+		for ag in assessmentGroup:
+			allAssignmentsfive.append(list(Assessment.objects.filter(agid = ag.id).
+										   filter(date__lt=timezone.now() - datetime.timedelta(days=5))))
+
+
+
+
 
 
 def dashboard(request):
