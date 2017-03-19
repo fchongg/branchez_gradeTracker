@@ -82,18 +82,14 @@ def addAssessmentGroup(request):
 
 def dashboard(request):
 	# todo : get userid and input into fn
-	allCourses = Course.get_all_courses(uid=request.user.id)
+	allCourses = Course.get_all_courses(user_id=request.user.id)
 	allAssignmentsfive = []
 	for course in allCourses:
-		assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
+		#assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
 		for ag in assessmentGroup:
 			allAssignmentsfive.append(list(Assessment.objects.filter(agid = ag.id).
 										   filter(date__lt=timezone.now() - datetime.timedelta(days=5))))
-
-
-
-
-
-
-def dashboard(request):
-	return render(request, 'courses/dashboard.html')
+	context = {
+		'assignmentName' : allAssignmentsfive
+	}
+	return render(request, 'courses/dashboard.html', context)

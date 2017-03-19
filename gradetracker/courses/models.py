@@ -12,7 +12,7 @@ class Course(models.Model):
     cname = models.CharField(max_length=200)
     term = models.CharField(max_length=2)
 
-    def get_all_courses(self, user_id):
+    def get_all_courses(user_id):
         Course.objects.filter(uid = user_id)
 
     def __str__(self):
