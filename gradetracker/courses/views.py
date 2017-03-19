@@ -33,7 +33,8 @@ def courseDetail(request, course_id):
 		assignments = assignments + list(Assessment.objects.filter(agid = ag.id))
 	context = {
 		'assignments' : assignments,
-		'courseName': courseName
+		'courseName': courseName,
+		'course_id': course_id
 	}
 	return render(request, 'courses/coursedetails.html',context)
 
@@ -70,10 +71,12 @@ def addAssessment(request):
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
 
-def addAssessmentGroup(request):
+def addAssessmentGroup(request, course_id):
 	if request.method == 'POST':
 		form = AssessmentGroupForm(request.POST)
 		if form.is_valid():
+			portfolio = form.save(commit=False)
+			portfolio.cid = Course.objects.get(id=course_id)
 			form.save()
 			return HttpResponseRedirect('courses/courses')
 	else:
@@ -83,10 +86,10 @@ def addAssessmentGroup(request):
 
 def dashboard(request):
 	# todo : get userid and input into fn
-	allCourses = Course.get_all_courses(user_id=request.user.id)
+	allCourses = Course.objects.filter(uid = request.user.id)
 	allAssignmentsfive = []
 	for course in allCourses:
-		#assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
+		assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
 		for ag in assessmentGroup:
 			allAssignmentsfive.append(list(Assessment.objects.filter(agid = ag.id).
 										   filter(date__lt=timezone.now() - datetime.timedelta(days=5))))

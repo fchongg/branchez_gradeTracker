@@ -11,5 +11,5 @@ urlpatterns = [
      url(r'^addcourses/$', views.addcourses, name='addcourses'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^addassessment/$', views.addAssessment, name='addassessment'),
-    url(r'^addgroup/$', views.addAssessmentGroup, name='addgroup')
+    url(r'^(?P<course_id>[0-9]+)/addgroup/$', views.addAssessmentGroup, name='addgroup')
 ]

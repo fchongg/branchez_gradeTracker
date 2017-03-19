@@ -18,4 +18,5 @@ class AssessmentForm(ModelForm):
 class AssessmentGroupForm(ModelForm):
     class Meta:
         model = AssessmentGroup
-        fields = ['cid', 'agpercentage', 'agtid']
+        # fields = ['cid', 'agpercentage', 'agtid']
+        fields = ['agpercentage', 'agtid']
