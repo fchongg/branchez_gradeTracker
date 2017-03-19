@@ -6,7 +6,6 @@ from django.template import loader
 from django.shortcuts import render
 from .forms import CourseForm
 from itertools import chain
-from .Courseforms import CourseForm
 from django.views.decorators.csrf import csrf_exempt
 from .forms import AssessmentForm
 
@@ -44,25 +43,14 @@ def courses(request):
 	return render(request, 'courses/course.html', context)
 
 def addcourses(request):
-	print ("made it to add courses")
-	course_debug = Course(uid_id=1, cname='trial', term='w1')
-	course_debug.save()
 	if request.method == 'POST':
-		print("made it to post")
-		form = CourseForm(request.POST, request.FILES or none)
+		form = CourseForm(request.POST)
 		if form.is_valid():
-			cname = request.POST.get('add_cname', '')
-			print("made it to cname")
-			term = request.POST.get('add_term', '')
-			print("made it to term")
-			course_obj = Course(cname=cname, term=term)
-			
-			
-			return HttpResponse('home_courses/')
-
-	else: 
+			form.save()
+			return HttpResponseRedirect('/courses/')
+	else:
 		form = CourseForm()
-	return render(request, 'courses/addcourse.html')
+	return render(request, 'courses/addcourse.html', {'form' : form})
 
 def addAssessment(request):
 	if request.method == 'POST':

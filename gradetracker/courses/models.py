@@ -6,8 +6,8 @@ from django import forms
 
 
 class Course(models.Model):
-    #uid =  models.ForeignKey(User)
-    uid_id = models.IntegerField(default=0)
+   # uid =  models.ForeignKey(User)
+    uid = models.IntegerField()
     cname = models.CharField(max_length=200)
     term = models.CharField(max_length=2)
 
