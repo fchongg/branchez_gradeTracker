@@ -1,8 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 
 class Course(models.Model):
     cid = models.IntegerField()
+    uid =  models.ForeignKey(User)
     cname = models.CharField(max_length=8)
     term = models.CharField(max_length=2)
 
@@ -15,7 +18,6 @@ class AssessmentGroup(models.Model):
     agid = models.IntegerField()
     agpercentage = models.PositiveSmallIntegerField()
     agtid = models.ForeignKey(AgType)
-
 
 class Assessment(models.Model):
 	agtid = models.ForeignKey(AgType)
