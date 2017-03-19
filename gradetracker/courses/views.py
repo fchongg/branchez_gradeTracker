@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 
+def Course(request):
+    return HttpResponse("Hello, you're at the courses page.")
 
-def index(request):
-    return HttpResponse("Hello, you're at the courses section")
+def addCourses(request):
+    return HttpResponse("Hello, you're at the add courses page.")
