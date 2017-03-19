@@ -47,9 +47,7 @@ def courses(request):
 
 def addcourses(request):
 	if request.method == 'POST':
-
 		form = CourseForm(request.POST)
-
 		if form.is_valid():
 			portfolio = form.save(commit=False)
 			portfolio.uid = request.user.id  # The logged-in user
@@ -96,4 +94,5 @@ def dashboard(request):
 
 
 
-
+def dashboard(request):
+	return render(request, 'courses/dashboard.html')
