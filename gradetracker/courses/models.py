@@ -19,11 +19,22 @@ class AssessmentGroup(models.Model):
     agpercentage = models.PositiveSmallIntegerField()
     agtid = models.ForeignKey(AgType)
 
+
+    def __unicode__(self):
+        # model = AgType
+        name = Course.objects.get(id=self.agtid)
+        # name = self.getName()
+        # name = AgType.objects.get(id=self.agtid)
+        # print(name)
+        # name = str(typeobj['agname'])
+        # print nameG
+        return str(self.agpercentage)
+
     def get_all_assignments(self, course_id):
         AssessmentGroup.objects.get(cid = course_id);
 
 class Assessment(models.Model):
-	aname = models.CharField(max_length=200)
-	agid = models.ForeignKey(AssessmentGroup)
-	apercentage = models.PositiveSmallIntegerField()
-	duedate = models.DateTimeField('Due Date', default= django.utils.timezone.now)
+	aname = models.CharField(max_length=200, verbose_name='Name')
+	agid = models.ForeignKey(AssessmentGroup, verbose_name='Type of Assessment')
+	apercentage = models.PositiveSmallIntegerField(verbose_name='Percentage of Assessment Group')
+	duedate = models.DateTimeField(default= django.utils.timezone.now, verbose_name='Due Date')
