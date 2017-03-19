@@ -8,6 +8,8 @@ from .forms import CourseForm
 from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
 from .forms import AssessmentForm
+import datetime
+from django.utils import timezone
 
 @csrf_exempt
 
@@ -59,9 +61,22 @@ def addAssessment(request):
 			return HttpResponseRedirect('/courses/')
 	else:
 		form = AssessmentForm()
-		form.fields['agtid'].queryset = AgType.objects.filter()
 
 	return render(request, 'courses/addassessment.html', {'form' : form})
+
+def dashboard(request):
+	# todo : get userid and input into fn
+	allCourses = Course.get_all_courses(uid=request.user.id)
+	allAssignmentsfive = []
+	for course in allCourses:
+		assessmentGroup = AssessmentGroup.objects.filter(cid = course.id)
+		for ag in assessmentGroup:
+			allAssignmentsfive.append(list(Assessment.objects.filter(agid = ag.id).
+										   filter(date__lt=timezone.now() - datetime.timedelta(days=5))))
+
+
+
+
 
 
 
