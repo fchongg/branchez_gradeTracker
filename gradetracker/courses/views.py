@@ -33,9 +33,8 @@ def courseDetail(request, course_id):
 
 def courses(request):
 
-	current_user = request.user
-	# template = loader.get_template('course')
-	all_courses = Course.objects.filter(uid=1)
+	print("THE NAME", request.user.username)
+	all_courses = Course.objects.filter(uid=request.user.id)
 
 	context = {
        	'all_courses': all_courses,

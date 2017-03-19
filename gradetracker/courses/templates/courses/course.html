@@ -1,20 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+
 <button type="button" onclick="window.location.href='../addcourses'">Add Course</button>
 <button type="button">Add Assessment</button>
 
+<body>
 <h1>Current Courses:</h1>
 
+<div class = container>
 <ul>
 {% for course in all_courses %}
     <li>{{course.cname}}</li>
 {% endfor %}
 </ul>
-
-<!-- {% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %} -->
+</div>
+</body>
+</html>
