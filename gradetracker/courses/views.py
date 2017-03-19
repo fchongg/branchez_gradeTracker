@@ -7,7 +7,7 @@ from django.shortcuts import render
 from .forms import CourseForm
 from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
-from .forms import AssessmentForm
+from .forms import AssessmentForm, AssessmentGroupForm
 
 import datetime
 from django.utils import timezone

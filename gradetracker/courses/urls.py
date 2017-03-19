@@ -10,5 +10,6 @@ urlpatterns = [
     # ex: /Courses/add/
      url(r'^addcourses/$', views.addcourses, name='addcourses'),
      url(r'^dashboard/$', views.dashboard, name='dashboard'),
-    url(r'^addassessment/$', views.addAssessment, name='addassessment')
+    url(r'^addassessment/$', views.addAssessment, name='addassessment'),
+    url(r'^addgroup/$', views.addAssessmentGroup, name='addgroup')
 ]
