@@ -11,12 +11,17 @@ def index(request):
 
 def courses(request, question_id):
 	current_user = request.user
+	template = loader.get_template('course')
+
 	if current_user.is_authenticated():
 		# grab all the courses associated with that id
 		all_courses = Course.object.get(uid=current_user.id)
+		if(all_courses == null):
+			#TODO: empty context here
 	else: 
 		# do nothing
-    return HttpResponse("You're looking at question %s." % question_id)
+
+	return HttpResponse(template.render(_,request))
 
 def addCourses(request):
     return HttpResponse("Hello, you're at the add courses page.")

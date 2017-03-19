@@ -1,3 +1,11 @@
+<h1>Current Courses:</h1>
+
+<ul>
+{% for course_name in course.cname.all %}
+    <li>{{course_name}}</li>
+{% endfor %}
+</ul>
+
 <!-- {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
