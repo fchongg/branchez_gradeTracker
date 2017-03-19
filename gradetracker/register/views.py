@@ -12,7 +12,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/accounts/register/complete')
+            return HttpResponseRedirect('/register/complete')
 
     else:
         form = UserCreationForm()
