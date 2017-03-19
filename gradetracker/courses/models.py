@@ -7,8 +7,8 @@ class Course(models.Model):
     term = models.CharField(max_length=2)
 
 class AgType(models.Model):
-	agtid = models.IntegerField()
-	agname = models.CharField(max_length=100)
+    agtid = models.IntegerField()
+    agname = models.CharField(max_length=100)
 
 class AssessmentGroup(models.Model):
     cid = models.ForeignKey(Course, on_delete=models.CASCADE)
