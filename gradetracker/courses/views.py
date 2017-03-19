@@ -104,10 +104,8 @@ def dashboard(request):
 						priority = fiveassignment[i]
 			allAssignmentsfive.append(fiveassignment)
 
-
-
 	context = {
 		'assignmentName' : allAssignmentsfive,
-		'highestWorth' : priority.aname
+		'highestWorth' : priority
 	}
 	return render(request, 'courses/dashboard.html', context)
