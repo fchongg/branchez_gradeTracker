@@ -8,6 +8,7 @@ from .forms import CourseForm
 from itertools import chain
 from django.views.decorators.csrf import csrf_exempt
 from .forms import AssessmentForm
+from django.http import QueryDict
 
 @csrf_exempt
 
@@ -33,9 +34,7 @@ def courseDetail(request, course_id):
 
 def courses(request):
 
-	print("THE NAME", request.user.username)
 	all_courses = Course.objects.filter(uid=request.user.id)
-
 	context = {
        	'all_courses': all_courses,
    	}
@@ -43,10 +42,14 @@ def courses(request):
 
 def addcourses(request):
 	if request.method == 'POST':
+
 		form = CourseForm(request.POST)
+
 		if form.is_valid():
+			portfolio = form.save(commit=False)
+			portfolio.uid = request.user.id  # The logged-in user
 			form.save()
-			return HttpResponseRedirect('/courses/')
+			return HttpResponseRedirect('/courses/courses/')
 	else:
 		form = CourseForm()
 	return render(request, 'courses/addcourse.html', {'form' : form})
@@ -56,7 +59,7 @@ def addAssessment(request):
 		form = AssessmentForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/courses/')
+			return HttpResponseRedirect('/courses/courses/')
 	else:
 		form = AssessmentForm()
 

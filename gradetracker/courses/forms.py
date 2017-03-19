@@ -5,9 +5,10 @@ from courses.models import Assessment
 from .models import Course
 
 class CourseForm(ModelForm):
-    class Meta:
-        model = Course
-        fields = ['uid', 'cname', 'term']
+
+	class Meta:
+	    model = Course
+	    fields = ['cname', 'term']
 
 class AssessmentForm(ModelForm):
     class Meta:
