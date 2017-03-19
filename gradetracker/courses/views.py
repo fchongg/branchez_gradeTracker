@@ -9,6 +9,11 @@ from django.template import loader
 def index(request):
     return HttpResponse("Hello, you're at the courses section")
 
+
+def courseDetail(request):
+
+    return HttpResponse();
+
 def courses(request, question_id):
 	current_user = request.user
 	template = loader.get_template('course')
@@ -25,3 +30,5 @@ def courses(request, question_id):
 
 def addCourses(request):
     return HttpResponse("Hello, you're at the add courses page.")
+
+
