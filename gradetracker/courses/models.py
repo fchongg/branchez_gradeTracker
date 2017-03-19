@@ -33,6 +33,13 @@ class AssessmentGroup(models.Model):
     def get_all_assignments_5_days(self, course_id):
         AssessmentGroup.objects.filter(cid = course_id, date__lt=timezone.now() - datetime.timedelta(days=5))
 
+
+    def __str__(self):
+        return self.agtid.agname
+
+    def get_all_assignments(self, course_id):
+        AssessmentGroup.objects.get(cid = course_id)
+
 class Assessment(models.Model):
 	aname = models.CharField(max_length=200, verbose_name='Name')
 	agid = models.ForeignKey(AssessmentGroup, verbose_name='Type of Assessment')
