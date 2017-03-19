@@ -15,6 +15,9 @@ class Course(models.Model):
     def get_all_courses(self, user_id):
         Course.objects.filter(uid = user_id)
 
+    def __str__(self):
+        return self.cname
+
 class AgType(models.Model):
     agname = models.CharField(max_length=100)
 
@@ -22,9 +25,9 @@ class AgType(models.Model):
         return self.agname
 
 class AssessmentGroup(models.Model):
-    cid = models.ForeignKey(Course, on_delete=models.CASCADE)
-    agpercentage = models.PositiveSmallIntegerField()
-    agtid = models.ForeignKey(AgType)
+    cid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name = 'Course')
+    agpercentage = models.PositiveSmallIntegerField(verbose_name = 'Percentage of Class')
+    agtid = models.ForeignKey(AgType, verbose_name = 'Type of Assessment')
 
     def __unicode__(self):
         return self.agtid.agname
