@@ -49,9 +49,10 @@ def courses(request):
 def addcourses(request):
 	if request.method == 'POST':
 		form = CourseForm(request.POST)
+		user = request.user
 		if form.is_valid():
 			portfolio = form.save(commit=False)
-			portfolio.uid = request.user.id  # The logged-in user
+			portfolio.uid = request.user
 			form.save()
 			return HttpResponseRedirect('/courses/courses/')
 	else:
