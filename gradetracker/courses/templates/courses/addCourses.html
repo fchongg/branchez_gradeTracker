@@ -1,9 +1,10 @@
-{% if latest_question_list %}
-    <ul>
-    {% for course in latest_course_list %}
-        <li><a href="/courses/{{ cid }}/">{{ course.course_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No courses are available.</p>
-{% endif %}
+<h1> Add Courses </h1>
+
+<form action="{% url 'addcourse' %}" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="course" id="course{{ forloop.counter }}" value="{{ course.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+<input type="submit" value="addcourse" />
+</form>
